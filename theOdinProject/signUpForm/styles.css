@@ -1,0 +1,143 @@
+:root{
+    font-size: 10px;
+    --section-1-width: 40vw;
+    --section-2-width: calc(100vw - var(--section-1-width))
+}
+@font-face {
+    font-family: "verdana";
+    src: url('fonts/verdana.otf') format("truetype");
+}
+* {
+    padding: 10;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Norse-bold, sans-serif;
+}
+body{
+    display: flex;
+    height: 100vh;
+    width: 150vw;
+    overflow: hidden;
+    background-color: goldenrod;
+}
+#section-1{
+    background-image: linear-gradient(255,255,255, rgba(0, 0, 0, 0.1)), url(c:\Users\Unyime\Downloads\logosignup.jpg);    background-size: cover;
+    min-width: var(--section-1-width);
+    height:100vh;
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    text-align: center;
+}
+#logo-section{
+    background-color: rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: -60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh 0;
+}
+#logo-section img{
+    width: auto;
+    height: 10rem;
+}
+#title{
+    font-family: 'verdana', 'Segoe UI', Tahoma, Geneva, sans-serif;
+    font-size: 7.7rem;
+}
+.credits, .credits *{
+    color: black;
+    font-size: 0.6rem;
+    margin: 1vh 1;
+}
+#section-2{
+    display: flex;
+    width: var(--section-2-width);
+    flex-direction: column-reverse;
+    justify-content: center;
+    background-color: #f5f5dc;
+    color: #00008B;
+}
+#section-2-container > div{
+    padding: 4vh;
+}
+#text-container{
+    font-size: 1.1rem;
+    font-weight: 1000;
+    margin-top: 3vh;
+    max-width: 800px;
+}
+#text-container p:first-child{
+    margin: 2vh 0;
+}
+#form-container{
+    box-shadow: 0 3px 4px 1px #cccccc;
+    background-color: #fff;
+}
+#form-title{
+    font-size: 2.3rem;
+    margin-bottom: 3vh;
+}
+#form{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+}
+#form label{
+    font-size: 1.1rem;
+    font-weight: 1000;
+    color: #444;
+    letter-spacing: 1px;
+}
+#form div{
+    width: 40%;
+    margin: 2vh 0;
+    text-transform: uppercase;
+}
+#form input{
+    width: 60%;
+    font-size: 2.6rem;
+    padding: 0.8vh;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.6vh;
+}
+#form input:focus{
+    box-shadow: 0 0 4px 1px #dddddd;
+    outline: 1px solid blue;
+}
+#form .invalid input{
+    outline: 1px solid red !important;
+    box-shadow: 0 0 4px 1px #cccccc !important;
+}
+#password-field.invalid::after{
+    content: '\A* Passwords do not match';
+    white-space: pre-wrap;
+    color: red;
+    text-transform: none;
+    position: relative;
+    top: 2px;
+}
+#form label::after{
+    content: '\a';
+    white-space: pre;
+}
+#account-container{
+    font-size: 1.7rem;
+}
+.btn{
+    background-color: #cd5c5c;
+    width: 230px;
+    text-align: center;
+    border-radius: .6vh;
+    color: #fff;
+    margin-bottom: 2vh;
+    padding: 15px;
+    font-weight: 500;
+}
+#account-container a{
+    color: #596D48;
+    text-decoration: none;
+    font-weight: 600;
+}
