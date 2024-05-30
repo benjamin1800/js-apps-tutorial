@@ -1,55 +1,42 @@
-const form = document.getElementById('add-form');
-const library = document.querySelector('#book-container');
+const form = document.getElementById("add-form");
+const library = document.querySelector("#book-container");
 
 let read = false;
 const myLibrary = [];
 
-form.addEventListener('submit', (event)=> {
-    event.preventDefault();
-    addBookToLibrary();
-    form.reset();  
-    displayBooks();
-})
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addBookToLibrary();
+  form.reset();
+  displayBooks();
+});
 
 function Books(title, author, pages) {
-    this.name = name;
-    this.author = author;
-    this.pages = pages;
+  const bookObj = { title, author, pages };
+  return bookObj;
 }
 
 function addBookToLibrary() {
-    const title = document.getElementById('name').value;
-    const author = document.getElementById('author').value;
-    const pages = document.getElementById('pages').value;
+  const title = document.getElementById("name").value;
+  const author = document.getElementById("author").value;
+  const pages = document.getElementById("pages").value;
 
-    const addedBook = new Books(title, author, pages);
-    myLibrary.push(addedBook);
+  const addedBook = Books(title, author, pages);
+  myLibrary.push(addedBook);
 }
 
 function displayBooks() {
-        library.innerHTML = '';
-        myLibrary.forEach((book, index)=> {
-        const div = document.createElement('div');
-        div.className = 'card';
-    ;
-
-        div.innerHTML = 
-        `
-        <div class="card-body">
-            <h5 class="card-title">${book.name}</h5>
-            <p class="card-subtitle mb-2 text-body-secondary"><strong>Author:</strong> ${book.author}</p>
-            <p class="card-text"><strong>Page(s):</strong> ${book.pages}</p>
-            <button class="btn btn-danger" onclick="remove(${index})">Remove</button>
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <label class="btn btn-outline-success" for="${book.title}">Read</label>
-            </div>
-        </div>
-        `
-        library.appendChild(div);
-    })
+  for (let i = 0; i < myLibrary.length; i++) {
+    const book = myLibrary[i];
+    bookTemplate(book.title, book.author, book.pages);
+  }
 }
 
-function remove(index) {
-    myLibrary.splice(index, 1);
-    displayBooks()
+function bookTemplate(title, author, pages) {
+  const template = `
+  <div> Book Title: ${title}</div>
+  <div> Book Author: ${author}</div>
+  <div> Book Pages: ${pages}</div>
+ `;
+  library.innerHTML = template;
 }
