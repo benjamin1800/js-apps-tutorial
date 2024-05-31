@@ -12,7 +12,7 @@ form.addEventListener("submit", (event) => {
 });
 
 function Books(id, title, author, pages) {
-  const bookObj = { id, title, author, pages };
+  const bookObj = { id, title, author, pages, isRead: false };
   return bookObj;
 }
 
@@ -42,6 +42,9 @@ function bookTemplate(id, title, author, pages) {
   
   <div>
   <button class="remove-btn" book-id="${id}">Remove</button>
+  <button class="read-btn" book-id="${id}">${
+    myLibrary[id - 1].isRead ? "Not Read" : "Read"
+  }</button>
   </div>
  `;
   library.innerHTML = template;
@@ -52,10 +55,20 @@ library.addEventListener("click", (event) => {
     const bookId = event.target.getAttribute("book-id");
     removeBook(bookId);
   }
+  if (event.target.classList.contains("read-btn")) {
+    const bookId = event.target.getAttribute("book-id");
+    toggleRead(bookId);
+  }
 });
 
 function removeBook(id) {
   const bookIndex = myLibrary.findIndex((book) => book.id === parseInt(id));
   myLibrary.splice(bookIndex, 1);
+  displayBooks();
+}
+
+function toggleRead(id) {
+  const bookIndex = myLibrary.findIndex((book) => book.id === parseInt(id));
+  myLibrary[bookIndex].isRead = !myLibrary[bookIndex].isRead;
   displayBooks();
 }
