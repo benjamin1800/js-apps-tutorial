@@ -1,74 +1,69 @@
-const form = document.getElementById("add-form");
-const library = document.querySelector("#book-container");
+let myLibrary = [];
 
-let read = false;
-const myLibrary = [];
+function Book(title, author, pages, read) {
+ this.title = title;
+ this.author = author;
+ this.pages = pages;
+ this.read = read;
+}
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  addBookToLibrary();
-  form.reset();
-  displayBooks();
-});
-
-function Books(id, title, author, pages) {
-  const bookObj = { id, title, author, pages, isRead: false };
-  return bookObj;
+Book.prototype.toggleRead = function() {
+  this.read = !this.read;
 }
 
 function addBookToLibrary() {
-  const title = document.getElementById("name").value;
-  const author = document.getElementById("author").value;
-  const pages = document.getElementById("pages").value;
-  const id = myLibrary.length + 1;
-
-  const addedBook = Books(id, title, author, pages);
-  myLibrary.push(addedBook);
+  let title = document.getElementById("title").value; title
+  let author = document.getElementById("author").value; author
+  let pages = document.getElementById("pages").value; pages
+  let read = document.getElementById("read").checked; read
+  let newBook = new Book(title, author, pages, read); newBook
+  myLibrary.push(newBook);
+  render();
 }
 
-function displayBooks() {
-  library.innerHTML = "";
+
+function render() {
+  let libraryEl = document.querySelector("#library");
+  libraryEl.innerHTML = "";
   for (let i = 0; i < myLibrary.length; i++) {
-    const book = myLibrary[i];
-    bookTemplate(book.id, book.title, book.author, book.pages);
+    let book = myLibrary[i];
+    let bookEl = document.createElement("div");
+    bookEl.setAttribute("class", "book-card");
+    bookEl.innerHTML = `
+    <div class="card-header">
+      <h3 class="title">${book.title}</h3>
+      <h5 class="author">by ${book.author}</h5>
+      </div>
+      <div class="card-body">
+        <p>${book.pages} pages</p>
+        <p class="read-status">${book.read ? "Read" : "Not Read Yet"}</p>
+        <button class="remove-btn" onclick="removeBook(${i})">Remove</button>
+        <button class="toggle-read-btn" onclick="toggleRead(${i}">Toggle Read</button>
+        </div>
+      `;
+    libraryEl.appendChild(bookEl);
   }
 }
 
-function bookTemplate(id, title, author, pages) {
-  const template = `
-  <div> Book Title: ${title}</div>
-  <div> Book Author: ${author}</div>
-  <div> Book Pages: ${pages}</div>
-  
-  <div>
-  <button class="remove-btn" book-id="${id}">Remove</button>
-  <button class="read-btn" book-id="${id}">${
-    myLibrary[id - 1].isRead ? "Not Read" : "Read"
-  }</button>
-  </div>
- `;
-  library.innerHTML = template;
+function toggleRead(index) {
+  myLibrary[index].toggleRead();
+  render();
 }
 
-library.addEventListener("click", (event) => {
-  if (event.target.classList.contains("remove-btn")) {
-    const bookId = event.target.getAttribute("book-id");
-    removeBook(bookId);
-  }
-  if (event.target.classList.contains("read-btn")) {
-    const bookId = event.target.getAttribute("book-id");
-    toggleRead(bookId);
-  }
+function removeBook(index) {
+ myLibrary.splice(index, 1);
+ render();
+}
+
+
+
+let newBookBtn = document.querySelector("#new-book-btn");
+newBookBtn.addEventListener("click", function() {
+  let newBookForm = document.querySelector("#new-book-form");
+  newBookForm.style.display = "block";
 });
 
-function removeBook(id) {
-  const bookIndex = myLibrary.findIndex((book) => book.id === parseInt(id));
-  myLibrary.splice(bookIndex, 1);
-  displayBooks();
-}
-
-function toggleRead(id) {
-  const bookIndex = myLibrary.findIndex((book) => book.id === parseInt(id));
-  myLibrary[bookIndex].isRead = !myLibrary[bookIndex].isRead;
-  displayBooks();
-}
+document.querySelector("#new-book-form").addEventListener("submit", function(event){
+  event.preventDefault();
+  addBookToLibrary();
+});
