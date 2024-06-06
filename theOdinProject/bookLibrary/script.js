@@ -38,7 +38,7 @@ function render() {
         <p>${book.pages} pages</p>
         <p class="read-status">${book.read ? "Read" : "Not Read Yet"}</p>
         <button class="remove-btn" onclick="removeBook(${i})">Remove</button>
-        <button class="toggle-read-btn" onclick="toggleRead(${i}">Toggle Read</button>
+        <button class="toggle-read-btn" onclick="toggleRead(${i})">Toggle Read</button>
         </div>
       `;
     libraryEl.appendChild(bookEl);
